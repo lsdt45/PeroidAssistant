@@ -13,7 +13,7 @@ declare module 'vue' {
     NutRadio: typeof import('nutui-uniapp/components/radio/radio.vue')['default']
     NutRadioGroup: typeof import('nutui-uniapp/components/radiogroup/radiogroup.vue')['default']
     PeriodRecord: typeof import('./src/components/PeriodRecord.vue')['default']
-    RecordItem: typeof import('./src/components/RecordItem.vue')['default']
-    RecordSection: typeof import('./src/components/RecordSection.vue')['default']
+    RecordItem: typeof import('./src/components/record/RecordItem.vue')['default']
+    RecordSection: typeof import('./src/components/record/RecordSection.vue')['default']
   }
 }

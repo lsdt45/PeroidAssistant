@@ -35,8 +35,6 @@ import {
   hasLove,
 } from "../../utils/periodData";
 import dayjs from "dayjs";
-// 导入封装的组件
-import RecordSection from "../../components/RecordSection.vue";
 
 // 使用dayjs获取当天的时间戳
 const date = ref(dayjs().valueOf());

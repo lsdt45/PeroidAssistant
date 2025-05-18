@@ -18,37 +18,29 @@
   </view>
 </template>
 
-<script lang="ts">
-import { ref, defineComponent } from "vue";
+<script setup lang="ts">
+import { ref } from 'vue';
 
-export default defineComponent({
-  name: "LoveRecord",
-  props: {
-    date: {
-      type: Number,
-      required: true,
-    },
-    defaultStatus: {
-      type: String,
-      default: "0",
-    },
+const props = defineProps({
+  date: {
+    type: Number,
+    required: true,
   },
-  emits: ["statusChange"],
-  setup(props, { emit }) {
-    const loveStatus = ref(props.defaultStatus);
-
-    const onLoveStatusChange = () => {
-      emit("statusChange", loveStatus.value === "1");
-    };
-
-    return {
-      loveStatus,
-      onLoveStatusChange,
-    };
+  defaultStatus: {
+    type: String,
+    default: '0',
   },
 });
+
+const emit = defineEmits(['statusChange']);
+
+const loveStatus = ref(props.defaultStatus);
+
+const onLoveStatusChange = () => {
+  emit('statusChange', loveStatus.value === '1');
+};
 </script>
 
 <style lang="scss">
-@import "../styles/common.scss";
+@import '../styles/common.scss';
 </style>

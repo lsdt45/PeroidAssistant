@@ -18,35 +18,27 @@
   </view>
 </template>
 
-<script lang="ts">
-import { ref, defineComponent } from 'vue';
+<script setup lang="ts">
+import { ref } from 'vue';
 
-export default defineComponent({
-  name: 'PeriodRecord',
-  props: {
-    date: {
-      type: Number,
-      required: true
-    },
-    defaultStatus: {
-      type: String,
-      default: '0'
-    }
+const props = defineProps({
+  date: {
+    type: Number,
+    required: true
   },
-  emits: ['statusChange'],
-  setup(props, { emit }) {
-    const periodStatus = ref(props.defaultStatus);
-
-    const onPeriodStatusChange = () => {
-      emit('statusChange', periodStatus.value === '1');
-    };
-
-    return {
-      periodStatus,
-      onPeriodStatusChange
-    };
+  defaultStatus: {
+    type: String,
+    default: '0'
   }
 });
+
+const emit = defineEmits(['statusChange']);
+
+const periodStatus = ref(props.defaultStatus);
+
+const onPeriodStatusChange = () => {
+  emit('statusChange', periodStatus.value === '1');
+};
 </script>
 
 <style lang="scss">
