@@ -16,5 +16,12 @@ export default defineConfig({
 		rollupOptions: {
 			external: ['@nutui/icons-vue']
 		}
-	}
+	},
+	css: {
+    preprocessorOptions: {
+      scss: {
+        api: 'modern-compiler', // 修改api调用方式
+      },
+    },
+  },
 });

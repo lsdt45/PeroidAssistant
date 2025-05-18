@@ -7,6 +7,13 @@ export {}
 
 declare module 'vue' {
   export interface GlobalComponents {
-    NutButton: typeof import('nutui-uniapp/components/button/button.vue')['default']
+    LoveRecord: typeof import('./src/components/LoveRecord.vue')['default']
+    NutCalendar: typeof import('nutui-uniapp/components/calendar/calendar.vue')['default']
+    NutIcon: typeof import('nutui-uniapp/components/icon/icon.vue')['default']
+    NutRadio: typeof import('nutui-uniapp/components/radio/radio.vue')['default']
+    NutRadioGroup: typeof import('nutui-uniapp/components/radiogroup/radiogroup.vue')['default']
+    PeriodRecord: typeof import('./src/components/PeriodRecord.vue')['default']
+    RecordItem: typeof import('./src/components/RecordItem.vue')['default']
+    RecordSection: typeof import('./src/components/RecordSection.vue')['default']
   }
 }
