@@ -42,7 +42,7 @@ const props = defineProps({
     required: true
   },
   date: {
-    type: Number,
+    type: String,
     required: true
   },
   defaultStatus: {
@@ -64,5 +64,5 @@ const onStatusChange = () => {
 </script>
 
 <style lang="scss">
-@import '../../styles/common.scss';
+@import '@/styles/common.scss';
 </style> 

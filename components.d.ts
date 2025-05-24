@@ -7,8 +7,8 @@ export {}
 
 declare module 'vue' {
   export interface GlobalComponents {
+    CalendarView: typeof import('./src/components/CalendarView/index.vue')['default']
     LoveRecord: typeof import('./src/components/LoveRecord.vue')['default']
-    NutCalendar: typeof import('nutui-uniapp/components/calendar/calendar.vue')['default']
     NutIcon: typeof import('nutui-uniapp/components/icon/icon.vue')['default']
     NutRadio: typeof import('nutui-uniapp/components/radio/radio.vue')['default']
     NutRadioGroup: typeof import('nutui-uniapp/components/radiogroup/radiogroup.vue')['default']

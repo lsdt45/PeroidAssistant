@@ -1,0 +1,162 @@
+.calendar-container {
+	position: relative;
+}
+
+.calendar-header-overlay {
+	position: absolute;
+	top: 60rpx;
+	right: 40rpx;
+	z-index: 10;
+
+	.back-today {
+		font-size: 24rpx;
+		color: #ff6b81;
+		padding: 6rpx 20rpx;
+		border-radius: 30rpx;
+		border: 1px solid #ff6b81;		background-color: rgba(255, 255, 255, 0.9);
+		-webkit-backdrop-filter: blur(10rpx);
+		backdrop-filter: blur(10rpx);
+		box-shadow: 0 2rpx 8rpx rgba(255, 107, 129, 0.2);
+	}
+}
+
+.calendar-section {
+	margin-bottom: 30rpx;
+
+	// 自定义 uni-calendar 的整体样式
+	:deep(.uni-calendar) {
+		background-color: #fff;
+		border-radius: 20rpx;
+		box-shadow: 0 2rpx 10rpx rgba(0, 0, 0, 0.05);
+		overflow: hidden;
+	}
+
+	// 自定义 uni-calendar 的头部样式
+	:deep(.uni-calendar__header) {
+		padding: 20rpx 30rpx;
+		background-color: #fff;
+		border-bottom: 1px solid #f5f5f5;
+
+		// 月份标题样式
+		.uni-calendar__header-text {
+			font-size: 34rpx;
+			font-weight: 500;
+			color: #666;
+		}
+
+		// 左右箭头按钮样式
+		.uni-calendar__header-btn-box {
+			width: 60rpx;
+			height: 60rpx;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			border-radius: 50%;
+			transition: background-color 0.3s ease;
+
+			&:hover {
+				background-color: rgba(221, 186, 227, 0.1);
+			}
+
+			// 箭头文字样式
+			.uni-calendar__header-btn {
+				font-size: 28rpx;
+				color: #ddbae3;
+				font-weight: bold;
+				line-height: 1;
+			}
+		}
+	}
+
+	// 星期标题行样式
+	:deep(.uni-calendar__weeks) {
+		background-color: #fafafa;
+
+		.uni-calendar__weeks-day {
+			color: #999;
+			font-size: 26rpx;
+			font-weight: 500;
+		}
+	}
+
+	// 自定义日期单元格样式
+	:deep(.uni-calendar__weeks-item) {
+		position: relative;
+
+		// 普通日期样式
+		.uni-calendar__weeks-item-text {
+			color: #333;
+			font-size: 28rpx;
+		}
+
+		// 今天的样式
+		&.uni-calendar__weeks-item--today {
+			.uni-calendar__weeks-item-text {
+				background-color: #fff;
+				border: 2rpx solid #ff6b81;
+				border-radius: 50%;
+				color: #ff6b81;
+				font-weight: bold;
+			}
+		}
+
+		// 选中日期的样式
+		&.uni-calendar__weeks-item--selected {
+			.uni-calendar__weeks-item-text {
+				background-color: #ff6b81;
+				color: #fff;
+				border-radius: 50%;
+				font-weight: bold;
+			}
+		}
+
+		// 有标记的日期样式（经期、爱爱记录）
+		&.uni-calendar__weeks-item--checked {
+			.uni-calendar__weeks-item-text {
+				background-color: #ffb3ba;
+				color: #fff;
+				border-radius: 50%;
+				font-weight: bold;
+			}
+
+			// 如果同时是今天
+			&.uni-calendar__weeks-item--today {
+				.uni-calendar__weeks-item-text {
+					background-color: #ff6b81;
+					border: 2rpx solid #fff;
+					box-shadow: 0 0 0 2rpx #ff6b81;
+				}
+			}
+		}
+
+		// 不可选择的日期（超出范围）
+		&.uni-calendar__weeks-item--disable {
+			.uni-calendar__weeks-item-text {
+				color: #ccc;
+			}
+		}
+
+		// 其他月份的日期
+		&.uni-calendar__weeks-item--isOtherMonth {
+			.uni-calendar__weeks-item-text {
+				color: #ddd;
+			}
+		}
+	}
+
+	:deep(.uni-calendar__backtoday) {
+		display: none;
+	}
+	
+	// 自定义标记点样式
+	:deep(.uni-calendar__weeks-item-extra) {
+		position: absolute;
+		bottom: 4rpx;
+		left: 50%;
+		transform: translateX(-50%);
+		width: 6rpx;
+		height: 6rpx;
+		border-radius: 50%;
+		background-color: #ff6b81;
+	}
+}

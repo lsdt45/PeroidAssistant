@@ -4,9 +4,13 @@ globs:
 alwaysApply: true
 ---
 # 经期助手（PeriodAssistant）项目规则
-## 回复规范
+## 前置规范
 - 请用中文回复所有问题
-
+- 有自动导入组件的配置，不需要手动导入
+- 所有组件都是用的是script setup的形式
+- 所有样式都用scss来编写
+- 所有的interface的命名，都要用"I"开头
+- 项目的运行方式是pnpm run dev:h5
 ## 项目命名规范
 
 1. **文件命名**
