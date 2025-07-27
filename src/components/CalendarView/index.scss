@@ -4,7 +4,7 @@
 
 .calendar-header-overlay {
 	position: absolute;
-	top: 60rpx;
+	top: 35rpx;
 	right: 40rpx;
 	z-index: 10;
 
@@ -19,7 +19,6 @@
 		box-shadow: 0 2rpx 8rpx rgba(255, 107, 129, 0.2);
 	}
 }
-
 .calendar-section {
 	margin-bottom: 30rpx;
 
@@ -144,10 +143,6 @@
 		}
 	}
 
-	:deep(.uni-calendar__backtoday) {
-		display: none;
-	}
-	
 	// 自定义标记点样式
 	:deep(.uni-calendar__weeks-item-extra) {
 		position: absolute;

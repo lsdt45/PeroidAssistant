@@ -42,5 +42,4 @@ const onPeriodStatusChange = () => {
 </script>
 
 <style lang="scss">
-@import '@/styles/common.scss';
 </style> 

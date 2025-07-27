@@ -3,18 +3,18 @@
 ## 已完成功能
 
 ### 1. 基础架构
-- [x] 创建uni-app项目框架
-- [x] 配置TypeScript和SCSS支持
-- [x] 集成NutUI组件库
-- [x] 建立基本文件结构（pages、components、utils、styles）
+- [Y] 创建uni-app项目框架
+- [Y] 配置TypeScript和SCSS支持
+- [Y] 集成NutUI组件库
+- [Y] 建立基本文件结构（pages、components、utils、styles）
 
 ### 2. 核心功能
-- [x] 日历展示功能
-  - [x] 集成NutUI日历组件
-  - [x] 支持日期选择
-  - [x] 实现经期日标记
-- [x] 经期记录功能
-  - [x] 实现经期状态切换
+- [Y] 日历展示功能
+  - [Y] 集成日历组件
+  - [Y] 支持日期选择
+  - [Y] 实现经期日标记
+- [Y] 经期记录功能
+  - [Y] 实现经期状态切换
   - [x] 实现经期数据持久化
   - [x] 日历上显示经期标记
 - [x] 爱爱记录功能

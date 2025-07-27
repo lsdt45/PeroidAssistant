@@ -5,6 +5,7 @@
 		</view>
 		<view class="calendar-section">
 			<uni-calendar
+				:date="currentDate"
 				:insert="true"
 				:start-date="currentMonthStart"
 				:end-date="currentMonthEnd"
@@ -19,14 +20,15 @@
 import { ref, onMounted, watch, computed } from 'vue';
 import { getUniCalendarSelected, periodData } from '@/utils/periodData';
 import { useCoreStore } from '@/store/core';
-import dayjs from 'dayjs';
+import dayjs from 'dayjs';  
 import type { IProps, IEmits } from '@/types/calendar';
+import { storeToRefs } from 'pinia';
 
 const props = defineProps<IProps>();
 const emit = defineEmits<IEmits>();
 
 const coreStore = useCoreStore();
-const { calendarData } = coreStore;
+const { calendarData, currentDate } = storeToRefs(coreStore);
 
 // 根据当前选中日期计算月份范围
 const currentMonthStart = computed(() => {
@@ -63,9 +65,8 @@ watch(
 
 const backToToday = () => {
 	const today = dayjs();
-	emit('dateChange', today.valueOf());
+	emit('dateChange', today.format('YYYY-MM-DD'));
 };
-
 
 /**
  * 处理日历选择事件
@@ -74,6 +75,7 @@ const backToToday = () => {
  */
 const onSelect = (param: any) => {
 	if (param?.fulldate) {
+		coreStore.updateCurrentDate(param.fulldate);
 		emit('dateChange', param.fulldate);
 	}
 };

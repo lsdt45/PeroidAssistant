@@ -18,5 +18,14 @@ export interface IEmits {
 	 * 日期变化事件
 	 * @param date 日期时间戳
 	 */
-	(e: 'dateChange', date: number): void;
+	(e: 'dateChange', date: string): void;
+}
+
+export interface RecordItemConfig {
+	recordType: string;
+	label: string;
+	iconName: string;
+	noText: string;
+	yesText: string;
+	status: string;
 }

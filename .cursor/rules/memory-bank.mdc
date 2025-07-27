@@ -11,6 +11,7 @@ alwaysApply: true
 - 所有样式都用scss来编写
 - 所有的interface的命名，都要用"I"开头
 - 项目的运行方式是pnpm run dev:h5
+  
 ## 项目命名规范
 
 1. **文件命名**

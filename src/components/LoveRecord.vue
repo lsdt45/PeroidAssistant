@@ -42,5 +42,5 @@ const onLoveStatusChange = () => {
 </script>
 
 <style lang="scss">
-@import '@/styles/common.scss';
+
 </style>

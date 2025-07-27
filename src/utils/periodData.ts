@@ -1,5 +1,12 @@
 import { ref } from 'vue';
 import dayjs from 'dayjs';
+import { type ICalendarData } from '@/types';
+import { cloneDeep } from 'lodash';
+import { useCoreStore } from '@/store/core';
+import { storeToRefs } from 'pinia';
+
+const coreStore = useCoreStore();
+const { calendarData } = storeToRefs(coreStore);
 
 export interface IPeriodDay {
 	date: string;
@@ -7,49 +14,101 @@ export interface IPeriodDay {
 	hasLove?: boolean; // 添加爱爱记录字段
 }
 
-// Store period data
 export const periodData = ref<IPeriodDay[]>([]);
 
-// Add or update period data
 export const updatePeriodData = (date: string, hasPeriod: boolean) => {
-	const existingIndex = periodData.value.findIndex((item) => {
-		// 使用dayjs比较日期，检查是否是同一天
-		return (
-			dayjs(item.date).format('YYYY-MM-DD') === dayjs(date).format('YYYY-MM-DD')
-		);
-	});
-
+	const formattedDate = dayjs(date).format('YYYY-MM-DD');
+	
+	// 更新calendarData（Pinia存储）
+	const _calendarData = cloneDeep(calendarData.value || []);
+	const existingIndex = _calendarData.findIndex((item) => item.date === formattedDate);
+	
 	if (existingIndex >= 0) {
-		// Update existing record
-		periodData.value[existingIndex].hasPeriod = hasPeriod;
+		const existingItem = _calendarData[existingIndex];
+		existingItem.hasPeriod = hasPeriod;
+		existingItem.info = getInfoText(hasPeriod, existingItem.hasLove);
 	} else {
-		// Add new record
-		periodData.value.push({ date, hasPeriod });
+		_calendarData.push({
+			date: formattedDate,
+			hasPeriod,
+			hasLove: false,
+			info: getInfoText(hasPeriod, false),
+		});
 	}
-
-	// Store data to local storage
-	uni.setStorageSync('period_data', JSON.stringify(periodData.value));
+	
+	// 更新Pinia store
+	coreStore.updateCalendarData(_calendarData);
+	
+	// 同步更新periodData
+	const periodIndex = periodData.value.findIndex((item) => item.date === formattedDate);
+	
+	if (periodIndex >= 0) {
+		periodData.value[periodIndex].hasPeriod = hasPeriod;
+	} else if (hasPeriod) {
+		periodData.value.push({ 
+			date: formattedDate, 
+			hasPeriod, 
+			hasLove: false 
+		});
+	}
 };
 
-// Add or update love data
 export const updateLoveData = (date: string, hasLove: boolean) => {
-	const existingIndex = periodData.value.findIndex((item) => {
-		// 使用dayjs比较日期，检查是否是同一天
-		return (
-			dayjs(item.date).format('YYYY-MM-DD') === dayjs(date).format('YYYY-MM-DD')
-		);
-	});
-
+	const formattedDate = dayjs(date).format('YYYY-MM-DD');
+	
+	const _calendarData = cloneDeep(calendarData.value || []);
+	const existingIndex = _calendarData.findIndex((item) => item.date === formattedDate);
+	
 	if (existingIndex >= 0) {
-		// Update existing record
-		periodData.value[existingIndex].hasLove = hasLove;
+		// 更新已存在的记录
+		_calendarData[existingIndex].hasLove = hasLove;
+		// 更新info字段
+		const hasPeriod = _calendarData[existingIndex].hasPeriod;
+		_calendarData[existingIndex].info = getInfoText(hasPeriod, hasLove);
 	} else {
-		// Add new record
-		periodData.value.push({ date, hasPeriod: false, hasLove });
+		// 添加新记录
+		_calendarData.push({
+			date: formattedDate,
+			hasPeriod: false,
+			hasLove,
+			info: hasLove ? '爱爱' : '',
+		});
 	}
+	
+	// 更新Pinia store
+	coreStore.updateCalendarData(_calendarData);
+	
+	// 同步更新periodData
+	const periodIndex = periodData.value.findIndex((item) => 
+		dayjs(item.date).format('YYYY-MM-DD') === formattedDate
+	);
+	
+	if (periodIndex >= 0) {
+		// 更新已存在的记录
+		periodData.value[periodIndex].hasLove = hasLove;
+	} else if (hasLove) {
+		// 只有当hasLove为true时才添加新记录
+		periodData.value.push({ 
+			date: formattedDate, 
+			hasPeriod: false, 
+			hasLove 
+		});
+	}
+	
+	// 暂时注释存储功能，根据项目需求可以取消注释
+	// uni.setStorageSync('period_data', JSON.stringify(periodData.value));
+};
 
-	// Store data to local storage
-	uni.setStorageSync('period_data', JSON.stringify(periodData.value));
+// 提取获取info文本的公共函数
+const getInfoText = (hasPeriod: boolean, hasLove: boolean): string => {
+	if (hasPeriod && hasLove) {
+		return '经期+爱爱';
+	} else if (hasPeriod) {
+		return '经期';
+	} else if (hasLove) {
+		return '爱爱';
+	}
+	return '';
 };
 
 // Load period data from storage
@@ -65,12 +124,12 @@ export const loadPeriodData = () => {
 };
 
 // Check if a date has a period
-export const hasPeriod = (date: string): boolean => {
-	return periodData.value.some((item) => {
-		// 使用dayjs比较日期，检查是否是同一天
-		return dayjs(item.date).format('YYYY-MM-DD') === date && item.hasPeriod;
-	});
-};
+// export const hasPeriod = (date: string): boolean => {
+// 	return periodData.value.some((item) => {
+// 		// 使用dayjs比较日期，检查是否是同一天
+// 		return dayjs(item.date).format('YYYY-MM-DD') === date && item.hasPeriod;
+// 	});
+// };
 
 // Check if a date has love record
 export const hasLove = (date: string): boolean => {
